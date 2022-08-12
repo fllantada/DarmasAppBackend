@@ -1,0 +1,10 @@
+# Node Dependency Injection
+
+services:
+  Apps.mooc.controllers.StatusGetController:
+    class: ../../controllers/StatusGetController
+    arguments: []
+
+  Apps.mooc.controllers.CoursePutController:
+    class: ../../controllers/CoursePutController
+    arguments: ['']
