@@ -7,6 +7,10 @@ let _request: request.Test;
 let application: MoocBackendApp;
 let _response: request.Response;
 
+//asociado cucumber.js
+//script en un json
+//types cucumber
+
 Given('I send a GET request to {string}', (route: string) => {
   _request = request(application.httpServer).get(route);
 });

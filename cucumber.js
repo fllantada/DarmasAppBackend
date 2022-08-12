@@ -1,5 +1,5 @@
 const common = [
-  '--require-module ts-node/register' // Load TypeScript module
+  '--require-module ts-node/register' // Load TypeScript module ejecuta typescript sin tener q transpilarlo.
 ];
 
 const mooc_backend = [
@@ -8,6 +8,13 @@ const mooc_backend = [
   '--require tests/apps/mooc/backend/features/step_definitions/*.steps.ts'
 ].join(' ');
 
+const sedes = [
+  ...common,
+  'tests/apps/sedes/sedes/*.feature',
+  '--require tests/apps/sedes/sedes/step_definitions/*.steps.ts'
+].join(' ');
+
 module.exports = {
-  mooc_backend
+  mooc_backend,
+  sedes
 };
