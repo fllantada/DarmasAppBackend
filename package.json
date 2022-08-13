@@ -12,6 +12,7 @@
   },
   "scripts": {
     "dev:mooc:backend": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules  ./src/apps/mooc/backend/start.ts",
+    "dev:sedes": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules  ./src/apps/sedes/start.ts",
     "lint": "tslint src/**/*.ts{,x}",
     "test": "npm run test:unit && npm run test:features",
     "test:unit": "NODE_ENV=test jest",
