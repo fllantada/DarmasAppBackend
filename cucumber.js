@@ -14,7 +14,14 @@ const sedes = [
   '--require tests/apps/sedes/sedes/step_definitions/*.steps.ts'
 ].join(' ');
 
+const liquidaciones = [
+  ...common,
+  'tests/apps/liquidaciones/features/postLiquidaciones/*.feature',
+  '--require tests/apps/liquidaciones/features/postLiquidaciones/step_definitions/*.steps.ts'
+].join(' ');
+
 module.exports = {
   mooc_backend,
-  sedes
+  sedes,
+  liquidaciones
 };
