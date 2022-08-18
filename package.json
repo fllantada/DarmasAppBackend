@@ -11,15 +11,12 @@
     "npm": ">=6.14.0"
   },
   "scripts": {
-    "dev:mooc:backend": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules  ./src/apps/mooc/backend/start.ts",
-    "dev:sedes": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules  ./src/apps/sedes/start.ts",
+    "dev": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules  ./src/App/start.ts",
     "dev:liquidaciones": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules  ./src/apps/liquidaciones/start.ts",
     "lint": "tslint src/**/*.ts{,x}",
     "test": "npm run test:unit && npm run test:features",
     "test:unit": "NODE_ENV=test jest",
-    "start:mooc:backend": "NODE_ENV=production node dist/src/apps/mooc/backend/start",
-    "test:features": "npm run test:mooc:backend:features && npm run test:sedes:sedes && npm run test:liquidaciones:postliquidaciones",
-    "test:mooc:backend:features": "NODE_ENV=test cucumber-js -p mooc_backend",
+    "test:features": "npm run test:sedes:sedes && npm run test:liquidaciones:postliquidaciones",
     "test:sedes:sedes": "NODE_ENV=test cucumber-js -p sedes",
     "test:liquidaciones:postliquidaciones": "NODE_ENV=test cucumber-js -p liquidaciones",
     "build": "npm run build:clean && npm run build:tsc && npm run build:di",
@@ -28,6 +25,7 @@
     "build:clean": "rm -r dist; exit 0"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "body-parser": "^1.19.0",
     "bodybuilder": "^2.4.0",
     "bson": "^4.5.2",
@@ -43,6 +41,7 @@
     "glob": "^7.2.0",
     "helmet": "^4.6.0",
     "http-status": "^1.5.0",
+    "mongoose": "^6.5.2",
     "node-dependency-injection": "^2.7.1",
     "nunjucks": "^3.2.3",
     "ts-node": "^10.2.1",
