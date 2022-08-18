@@ -1,28 +1,23 @@
-//import { Course } from '../domain/Course';
-//import { CourseRepository } from '../domain/CourseRepository';
-
 import { DentalinkRepository } from '../infrastructure/dentalinkRepository';
-
-//caso de uso crear un curso en Contexto / Aplicacion
-//Recibe una implementacion de la interfase CourseRepository
-//esta interface tiene el metodo save()
-
-//courseCreator es un agregado a Curso hay una dependencia
-//Si modifico curse tengo q modificar courseCreator
+import { MongoRepository } from '../infrastructure/MongoRepository';
 
 export class LiquidacionesSemanales {
-  private repository: DentalinkRepository;
+  private dentalink: DentalinkRepository;
+  private mongoDb: MongoRepository;
 
-  constructor(repository: DentalinkRepository) {
-    this.repository = repository;
+  constructor(dentalinkRepository: DentalinkRepository, persistRepository: MongoRepository) {
+    this.dentalink = dentalinkRepository;
+    this.mongoDb = persistRepository;
   }
 
   async run(): Promise<void> {
     console.log('Inicie la app de liquidaciones semanales');
-    this.repository.updatePagos();
-    this.repository.updateLiquidaciones();
-    const pagosSemana = this.repository.getPagosSemana();
-    const liquidacionesSemana = this.repository.getLiquidacionesSemana();
+    this.dentalink.updatePagos();
+    this.dentalink.updateLiquidaciones();
+    const pagosSemana = this.dentalink.getPagosSemana('2020-01-01', '2020-01-07');
+    const liquidacionesSemana = this.dentalink.getLiquidacionesSemanales();
     console.log(pagosSemana, liquidacionesSemana);
+
+    this.mongoDb.save(pagosSemana);
   }
 }

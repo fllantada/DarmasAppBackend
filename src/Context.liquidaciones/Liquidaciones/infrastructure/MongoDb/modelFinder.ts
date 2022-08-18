@@ -3,11 +3,6 @@ import { model } from 'mongoose';
 import glob from 'glob';
 
 export class ModelFinder {
-  constructor(collectionName: string) {
-    // this.findRoutes();
-    this.findModel(collectionName);
-  }
-
   findModel(collectionName: string): typeof model {
     console.log('Entre en find Models');
 
