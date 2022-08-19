@@ -11,7 +11,7 @@ export class DentalinkRepository implements LiquidacionesSemanalesRepository {
     throw new Error('Method not implemented.');
   }
 
-  async getPagosSemana(fecha_inicio: string, fecha_fin: string): Promise<any> {
+  async getPagosSemana(fechaInicio: string, fechaFin: string): Promise<any> {
     const dentalink = new Dentalink({});
     const url = dentalink.url();
     console.log(url);
