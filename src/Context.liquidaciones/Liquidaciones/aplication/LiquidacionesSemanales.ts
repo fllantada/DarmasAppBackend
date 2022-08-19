@@ -17,7 +17,8 @@ export class LiquidacionesSemanales {
     const pagosSemana = this.dentalink.getPagosSemana('2020-01-01', '2020-01-07');
     const liquidacionesSemana = this.dentalink.getLiquidacionesSemanales();
     console.log(pagosSemana, liquidacionesSemana);
+    console.log(this.mongoDb);
 
-    this.mongoDb.save(pagosSemana);
+    this.mongoDb.getCollection('Pagos');
   }
 }

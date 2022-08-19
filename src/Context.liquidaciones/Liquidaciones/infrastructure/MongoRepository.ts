@@ -3,6 +3,7 @@ import { MongoConection } from './MongoDb/mongoConection';
 
 export class MongoRepository {
   constructor() {
+    console.log('inicie el constructor de mongoRepository');
     new MongoConection().dbConnect();
   }
 

@@ -4,11 +4,11 @@ import { Dentalink } from './Dentalink/Dentalink';
 export class DentalinkRepository implements LiquidacionesSemanalesRepository {
   constructor() {}
 
-  updatePagos(): Promise<void> {
-    throw new Error('Method not implemented.');
+  async updatePagos(): Promise<void> {
+    console.log('Entre update pagos');
   }
-  updateLiquidaciones(): Promise<void> {
-    throw new Error('Method not implemented.');
+  async updateLiquidaciones(): Promise<void> {
+    console.log('Entre update liquidaciones');
   }
 
   async getPagosSemana(fechaInicio: string, fechaFin: string): Promise<any> {
@@ -16,7 +16,7 @@ export class DentalinkRepository implements LiquidacionesSemanalesRepository {
     const url = dentalink.url();
     console.log(url);
   }
-  getLiquidacionesSemanales(): Promise<any> {
-    throw new Error('Method not implemented.');
+  async getLiquidacionesSemanales(): Promise<any> {
+    console.log('Entre a getLiquidacionesSemanales');
   }
 }

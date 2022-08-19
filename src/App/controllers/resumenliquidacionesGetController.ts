@@ -13,7 +13,7 @@ export class ResumenLiquidacionesGetController implements Controller {
 
     const mongoRepository = new MongoRepository();
 
-    const liquidaciones = new LiquidacionesSemanales(dentalinkRepository, mongoRepository).run();
+    const liquidaciones = await new LiquidacionesSemanales(dentalinkRepository, mongoRepository).run();
 
     console.log('Por devolver Liquidaciones', liquidaciones);
 
