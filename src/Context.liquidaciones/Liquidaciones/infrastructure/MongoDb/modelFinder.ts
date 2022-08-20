@@ -1,4 +1,3 @@
-import { Router } from 'express';
 import { model } from 'mongoose';
 import glob from 'glob';
 
@@ -10,10 +9,5 @@ export class ModelFinder {
     const modelFinded = require(modelsPaths[0]);
 
     return modelFinded;
-  }
-
-  registerRoutes(routePath: string, router: Router) {
-    const route = require(routePath);
-    route.register(router);
   }
 }

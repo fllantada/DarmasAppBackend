@@ -42,6 +42,7 @@
     "glob": "^7.2.0",
     "helmet": "^4.6.0",
     "http-status": "^1.5.0",
+    "moment": "^2.29.4",
     "mongoose": "^6.5.2",
     "node-dependency-injection": "^2.7.1",
     "nunjucks": "^3.2.3",

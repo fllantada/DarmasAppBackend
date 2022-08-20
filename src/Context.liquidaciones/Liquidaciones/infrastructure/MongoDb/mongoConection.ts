@@ -6,8 +6,7 @@ export class MongoConection {
   }
 
   public async dbConnect() {
-    await mongoose.connect(`${process.env.MONGODB_URI}`).then(() => {
-      console.log('Conectado a MongoDB');
-    });
+    const client = await mongoose.connect(`${process.env.MONGODB_URI}`);
+    console.log('Cliente es:', client.models);
   }
 }
