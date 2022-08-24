@@ -25,13 +25,24 @@ export class MongoRepository {
     }
   }
 
-  find(id: number) {}
+  async find(collectionName: string, filter: {} = {}): Promise<any> {
+    console.log('Entre a metodo find con filter en:', filter);
+
+    const collection = await this.getCollection(collectionName);
+
+    const data = await collection.find(filter);
+
+    return data;
+  }
+  async findOne(collectionName: string, filter: {} = {}): Promise<any> {
+    const collection = await this.getCollection(collectionName);
+    const data = await collection.findOne(filter);
+    return data;
+  }
 
   findOrCreate(id: number) {}
 
   delete(id: number) {}
-
-  findOne(id: number) {}
 
   disconect() {
     new MongoConection().dbDisconnect();

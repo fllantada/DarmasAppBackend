@@ -8,7 +8,7 @@ export class ModelFinder {
     console.log('modelsPaths:', modelsPaths);
     //arrojo error si no encuentro el modelo
     if (!modelsPaths.length) {
-      throw new Error('No se encontro el modelo: Crea el modelo en la carpeta models');
+      throw new Error(`No se encontro el modelo ${collectionName}: Crea el modelo en la carpeta models`);
     }
     //lo importo al modelo
     const modelFinded = require(modelsPaths[0]).default;

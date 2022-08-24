@@ -1,60 +1,64 @@
-import { DentalinkRepository } from '../../../Shared/infrastructure/dentalinkRepository';
-import { MongoRepository } from '../../../Shared/infrastructure/MongoRepository';
-import { DatesRepository } from '../../../Shared/infrastructure/DatesRepository';
+import { Liquidacion } from '../domain/Liquidacion';
 
 export class LiquidacionesSemanales {
-  private dentalink: DentalinkRepository;
-  private mongoDb: MongoRepository;
-  private dates: DatesRepository;
+  private repository: any;
 
-  constructor(
-    dentalinkRepository: DentalinkRepository,
-    persistRepository: MongoRepository,
-    datesRepository: DatesRepository
-  ) {
-    this.dentalink = dentalinkRepository;
-    this.mongoDb = persistRepository;
-    this.dates = datesRepository;
+  constructor(repository: any) {
+    this.repository = repository;
   }
 
-  async run(): Promise<void> {
-    //busco si hay nuevos pagos
+  async run(): Promise<Array<Liquidacion>> {
+    console.log('Inicio aplicacion y llamo a pagos');
+    const pagos = await this.repository.getPagosSemanales();
+    const sedes = await this.repository.getSedes();
+    const liquidaciones = await this.repository.getLiquidacionesSemanales();
+    console.log('tengo datos -Pagos:', pagos.length, 'sedes:', sedes.length, 'liquidaciones:', liquidaciones.length);
+    const pagosPorSucursal = this.asignarPagos(pagos, sedes);
 
-    const newPagos = await this.getNewPagos();
+    const liquidacionesPorSucursal = this.agruparLiquidaciones(liquidaciones, sedes);
 
-    //Guardo los nuevos pagos en el repositorio persist
+    const resumenLiquidaciones = this.crearLiquidaciones(pagosPorSucursal, liquidacionesPorSucursal);
 
-    await this.mongoDb.save('Pagos', newPagos, 'id_pago_dentalink');
-
-    //busco las liquidaciones
-
-    const newLiquidaciones: Array<any> = await this.getNewLiquidaciones();
-
-    //Guardo las liquidaciones en el repositorio persist
-
-    await this.mongoDb.save('Liquidaciones', newLiquidaciones, 'id_dentalink');
-
-    console.log('tengo las liquidaciones y los pagos:', newLiquidaciones.length, newPagos.length);
-    //guardo las liquidaciones en el repositorio persist
-    this.dentalink.getPagosSemana('fechaInicio', 'fechaFin');
-
-    this.dentalink.getLiquidacionesSemanales();
-
-    //hago la logica de las liquidaciones
+    console.log(resumenLiquidaciones);
+    return resumenLiquidaciones;
   }
-
-  async getNewPagos(): Promise<Array<any>> {
-    //Defino el rango de fechas
-    const fechaInicio = this.dates.lunesSemanaAnterior();
-    const fechaFin = this.dates.lunesEstaSemana();
-    //Llamo a la funcion que busca los pagos nuevos en ese rango
-    const newPagos = await this.dentalink.updatePagos(fechaInicio, fechaFin);
-    //devuelvo los pagos
-    return newPagos;
+  private asignarPagos(pagos: Array<any>, sedes: Array<any>): Array<any> {
+    return [];
   }
-  async getNewLiquidaciones(): Promise<Array<any>> {
-    const fechaInicio = this.dates.haceUnMes();
-    const newLiquidaciones: Array<any> = await this.dentalink.updateLiquidaciones(fechaInicio);
-    return newLiquidaciones;
+  private agruparLiquidaciones(liquidaciones: Array<any>, sedes: Array<any>): Array<any> {
+    //si tengo 2 dentistas que estan en la misma sede los agrupa a una sola liquidacion sumando los montos
+
+    console.log('las liquidaciones sin agrupar son:', liquidaciones.length);
+
+    const liquidacionesAgrupadas = liquidaciones.reduce(
+      (liqAgrupadas: any, liquidacion: any, index: number, Liquidaciones: Array<any>) => {
+        console.log('ejecutando el reduce en la liq:', liquidacion.id_sucursal);
+
+        //encuentro la sede correspondiente a la liquidacion
+        const finded = liqAgrupadas.find((liq: any) => liq.id_sucursal == liquidacion.id_sucursal);
+
+        if (!finded) {
+          let nombreSede = sedes.find(sede => sede.id_dentalink == liquidacion.id_sucursal).name;
+
+          liqAgrupadas.push({ ...liquidacion._doc, nombre_sucursal: nombreSede });
+        } else {
+          console.log('Encontre duplicado lo agrupo', 'finded es:', finded, 'liquidacion actual es:', liquidacion);
+          finded.monto += liquidacion.monto;
+          finded.id_dentista = finded.id_dentista + ',' + liquidacion.id_dentista;
+          finded.id_dentalink = finded.id_dentalink + ',' + liquidacion.id_dentalink;
+          console.log('Ahora queda la liquidacion en:', finded);
+        }
+
+        return liqAgrupadas;
+      },
+      []
+    );
+
+    console.log(liquidacionesAgrupadas);
+
+    return [];
+  }
+  crearLiquidaciones(pagosPorSucursal: Array<any>, liquidacionesPorSucursal: Array<any>): Array<any> {
+    return [];
   }
 }
