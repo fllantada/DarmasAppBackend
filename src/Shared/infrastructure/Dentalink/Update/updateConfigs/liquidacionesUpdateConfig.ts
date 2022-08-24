@@ -17,6 +17,7 @@ export const liquidacionesUpdateConfig = (fechaInicio: string): updateConfig => 
         fecha_termino: liquidacion.fecha_termino,
         monto: liquidacion.monto,
         activa: liquidacion.activa,
+        /*eslint-disable */
         link_detalle: liquidacion.links.map((e: any) => {
           if (e.rel === 'detalles') {
             return e.href;
@@ -24,6 +25,7 @@ export const liquidacionesUpdateConfig = (fechaInicio: string): updateConfig => 
         })[1]
       };
     });
+    /*eslint-enable */
 
     return liquidacionesMapeadas;
   }
