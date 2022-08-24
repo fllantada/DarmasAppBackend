@@ -17,7 +17,6 @@ export class Server {
   private dirname?: string;
 
   constructor(port: string, who?: string, dirname?: string) {
-    console.log('Iniciendo servidor', who, port, dirname);
     this.port = port;
     this.who = who || 'SomeOne';
     this.dirname = dirname || './';
@@ -37,7 +36,6 @@ export class Server {
     //registerRoutes(router);
 
     router.use((err: Error, req: Request, res: Response, next: Function) => {
-      console.log(err);
       res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message);
     });
   }
@@ -46,7 +44,7 @@ export class Server {
     return new Promise(resolve => {
       this.httpServer = this.express.listen(this.port, () => {
         console.log(` ${this.who} is running at http://localhost:${this.port} in ${this.express.get('env')} mode`);
-        console.log('  Press CTRL-C to stop\n');
+
         resolve();
       });
     });

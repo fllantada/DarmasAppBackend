@@ -5,7 +5,7 @@ export class DarmasApp {
 
   async start() {
     const port = process.env.PORT || '4000';
-    this.server = new Server(port, 'Sedes', __dirname + '/routes/*.route.*');
+    this.server = new Server(port, 'Liquidaciones', __dirname + '/routes/*.route.*');
 
     return this.server.listen();
   }

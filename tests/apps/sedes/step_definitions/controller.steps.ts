@@ -9,14 +9,8 @@ let _request: request.Test;
 let application: SedesApp;
 let _response: request.Response;
 
-// //asociado cucumber.js
-// //script en un json
-// //types cucumber
-// console.log('------------>>>>>>>>Iniciando test de SEDES');
-
 Given('I send a GET request to {string}', (route: string) => {
   _request = request(application.httpServer).get(route);
-  console.log(route);
 });
 
 Then('the response status code should be {int}', async (status: number) => {

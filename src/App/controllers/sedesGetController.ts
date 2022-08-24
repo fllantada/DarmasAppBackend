@@ -8,8 +8,6 @@ export class SedesGetController implements Controller {
 
     //Enviar respuesta
 
-    console.log('Inicie el get a sedes');
-
     throw new Error('Method not implemented.');
   }
 }

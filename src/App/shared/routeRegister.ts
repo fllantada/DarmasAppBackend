@@ -12,10 +12,8 @@ export class RouteRegister {
   }
 
   findRoutes() {
-    console.log('Entre en find routes');
-    console.log('dirname es:', this.dirname);
     const routes: string[] = glob.sync(this.dirname);
-    console.log('las rutas son:', routes);
+
     routes.map(routePath => this.registerRoutes(routePath, this.router));
   }
 

@@ -1,6 +1,6 @@
-import { DentalinkRepository } from '../infrastructure/dentalinkRepository';
-import { MongoRepository } from '../infrastructure/MongoRepository';
-import { DatesRepository } from '../infrastructure/DatesRepository';
+import { DentalinkRepository } from '../../../Shared/infrastructure/dentalinkRepository';
+import { MongoRepository } from '../../../Shared/infrastructure/MongoRepository';
+import { DatesRepository } from '../../../Shared/infrastructure/DatesRepository';
 
 export class LiquidacionesSemanales {
   private dentalink: DentalinkRepository;
@@ -18,17 +18,43 @@ export class LiquidacionesSemanales {
   }
 
   async run(): Promise<void> {
-    console.log('Inicie App de LiquidacionesSemanales');
+    //busco si hay nuevos pagos
 
-    this.dentalink.updatePagos();
-    this.dentalink.updateLiquidaciones();
-    console.log(this.dates.lunesEstaSemana());
-    console.log('Dates llamado');
-    const pagosSemana = this.dentalink.getPagosSemana('2020-01-01', '2020-01-07');
-    const liquidacionesSemana = this.dentalink.getLiquidacionesSemanales();
-    console.log(pagosSemana, liquidacionesSemana);
-    console.log(this.mongoDb);
+    const newPagos = await this.getNewPagos();
 
-    this.mongoDb.getCollection('Pagos');
+    //Guardo los nuevos pagos en el repositorio persist
+
+    await this.mongoDb.save('Pagos', newPagos, 'id_pago_dentalink');
+
+    //busco las liquidaciones
+
+    const newLiquidaciones: Array<any> = await this.getNewLiquidaciones();
+
+    //Guardo las liquidaciones en el repositorio persist
+
+    await this.mongoDb.save('Liquidaciones', newLiquidaciones, 'id_dentalink');
+
+    console.log('tengo las liquidaciones y los pagos:', newLiquidaciones.length, newPagos.length);
+    //guardo las liquidaciones en el repositorio persist
+    this.dentalink.getPagosSemana('fechaInicio', 'fechaFin');
+
+    this.dentalink.getLiquidacionesSemanales();
+
+    //hago la logica de las liquidaciones
+  }
+
+  async getNewPagos(): Promise<Array<any>> {
+    //Defino el rango de fechas
+    const fechaInicio = this.dates.lunesSemanaAnterior();
+    const fechaFin = this.dates.lunesEstaSemana();
+    //Llamo a la funcion que busca los pagos nuevos en ese rango
+    const newPagos = await this.dentalink.updatePagos(fechaInicio, fechaFin);
+    //devuelvo los pagos
+    return newPagos;
+  }
+  async getNewLiquidaciones(): Promise<Array<any>> {
+    const fechaInicio = this.dates.haceUnMes();
+    const newLiquidaciones: Array<any> = await this.dentalink.updateLiquidaciones(fechaInicio);
+    return newLiquidaciones;
   }
 }

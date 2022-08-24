@@ -1,8 +1,11 @@
 import moment from 'moment';
+import { Dates } from './Dates/DatesManagment';
 
-export class Dates {
+export class DatesRepository extends Dates {
+  constructor() {
+    super();
+  }
   lunesEstaSemana(): string {
-    console.log('Entre en lunes de esta semana');
     return moment().isoWeekday('Monday').format('YYYY-MM-DD');
   }
   lunesSemanaAnterior(): string {
