@@ -8,7 +8,7 @@ export const liquidacionesUpdateConfig = (fechaInicio: string): updateConfig => 
     }
   },
   maper: (liquidaciones: Array<object>) => {
-    let liquidacionesMapeadas = liquidaciones.map((liquidacion: any) => {
+    const liquidacionesMapeadas = liquidaciones.map((liquidacion: any) => {
       return {
         id_dentalink: liquidacion.id,
         id_dentista: liquidacion.id_dentista,
