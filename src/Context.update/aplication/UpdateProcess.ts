@@ -28,12 +28,14 @@ export class UpdateProcess {
     const fechaFin = this.dates.lunesEstaSemana();
     const newPagos = await this.dentalink.updatePagos(fechaInicio, fechaFin);
     newPagos.length && (await this.mongoDb.save('Pagos', newPagos, 'id_pago_dentalink'));
-    return { msg: `Se actualizaron ${newPagos.length} pagos ` };
+    const response = { msg: `Se actualizaron ${newPagos.length} pagos ` };
+    return response;
   }
   async updateLiquidaciones(): Promise<{ msg: string }> {
     const fechaInicio = this.dates.haceUnMes();
     const newLiquidaciones: Array<any> = await this.dentalink.updateLiquidaciones(fechaInicio);
     newLiquidaciones.length && (await this.mongoDb.save('Liquidaciones', newLiquidaciones, 'id_dentalink'));
-    return { msg: `Se actualizaron ${newLiquidaciones.length} liquidaciones ` };
+    const response = { msg: `Se actualizaron ${newLiquidaciones.length} liquidaciones ` };
+    return response;
   }
 }
