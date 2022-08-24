@@ -1,7 +1,7 @@
 import { UpdateConfig } from './updateConfigs/updateConfigInterface';
-import { Dentalinkcall } from '../DentalinkCall';
+import { DentalinkCaller } from '../DentalinkCall';
 
-export class DentalinkUpdater extends Dentalinkcall {
+export class DentalinkUpdater extends DentalinkCaller {
   private maper: Function;
   private url: string;
   private filters: {};

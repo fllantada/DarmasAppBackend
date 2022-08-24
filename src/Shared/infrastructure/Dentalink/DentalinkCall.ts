@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export class Dentalinkcall {
+export class DentalinkCaller {
   private customAxios = axios.create({
     headers: { Authorization: 'Token ' + process.env.TOKEN_DENTALINK }
   });
