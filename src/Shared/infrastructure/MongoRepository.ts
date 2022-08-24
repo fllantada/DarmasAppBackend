@@ -14,10 +14,10 @@ export class MongoRepository {
     const collection = this.getCollection(collectionName);
 
     for (let i = 0; i < data.length; i++) {
-      var filter = {
+      const filter = {
         [uniqueValue]: data[i][uniqueValue]
       };
-      var update = data[i];
+      const update = data[i];
       await collection.findOneAndUpdate(filter, update, {
         new: true,
         upsert: true // Make this update into an upsert

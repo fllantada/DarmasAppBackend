@@ -22,9 +22,9 @@ export class DentalinkCall {
     return this.allData;
   }
   async createDentalinkUrl(url: string, filter: {}): Promise<string> {
-    const baseUrl: string = `https://api.dentalink.healthatom.com/api/v1${url}`;
-    const sendString: string = `?q=${JSON.stringify(filter)}`;
-    const finalUrl: string = baseUrl + sendString;
+    const baseUrl = `https://api.dentalink.healthatom.com/api/v1${url}`;
+    const sendString = `?q=${JSON.stringify(filter)}`;
+    const finalUrl = baseUrl + sendString;
     return finalUrl;
   }
 
@@ -37,10 +37,14 @@ export class DentalinkCall {
     this.allData = [...this.allData, ...newData];
   }
   private isValidUrl(url: string | undefined): boolean {
-    if (typeof url !== 'string') return false;
+    if (typeof url !== 'string') {
+      return false;
+    }
     if (url.includes('https://api.dentalink.healthatom.com/api/v1')) {
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   }
 }
 

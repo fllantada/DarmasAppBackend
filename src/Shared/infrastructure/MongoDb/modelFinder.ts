@@ -7,7 +7,9 @@ export class ModelFinder {
     const modelsPaths: string[] = glob.sync(`${__dirname}/models/${collectionName}.ts`);
     console.log('modelsPaths:', modelsPaths);
     //arrojo error si no encuentro el modelo
-    if (!modelsPaths.length) throw new Error('No se encontro el modelo: Crea el modelo en la carpeta models');
+    if (!modelsPaths.length) {
+      throw new Error('No se encontro el modelo: Crea el modelo en la carpeta models');
+    }
     //lo importo al modelo
     const modelFinded = require(modelsPaths[0]).default;
     //retorno el modelo
