@@ -1,17 +1,13 @@
-import { DentalinkRepository } from '../../shared/infrastructure/dentalinkRepository';
-import { MongoRepository } from '../../shared/infrastructure/MongoRepository';
-import { DatesRepository } from '../../shared/infrastructure/DatesRepository';
+// import { DentalinkRepository } from '../../shared/infrastructure/dentalinkRepository';
+// import { MongoRepository } from '../../shared/infrastructure/MongoRepository';
+// import { DatesRepository } from '../../shared/infrastructure/DatesRepository';
 
 export class UpdateProcess {
-  private dentalink: DentalinkRepository;
-  private mongoDb: MongoRepository;
-  private dates: DatesRepository;
+  private dentalink: any;
+  private mongoDb: any;
+  private dates: any;
 
-  constructor(
-    dentalinkRepository: DentalinkRepository,
-    persistRepository: MongoRepository,
-    datesRepository: DatesRepository
-  ) {
+  constructor(dentalinkRepository: any, persistRepository: any, datesRepository: any) {
     this.dentalink = dentalinkRepository;
     this.mongoDb = persistRepository;
     this.dates = datesRepository;
