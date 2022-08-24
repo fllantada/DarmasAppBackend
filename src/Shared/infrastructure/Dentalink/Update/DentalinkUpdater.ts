@@ -1,12 +1,12 @@
-import { updateConfig } from './updateConfigs/updateConfigInterface';
-import { DentalinkCall } from '../DentalinkCall';
+import { UpdateConfig } from './updateConfigs/updateConfigInterface';
+import { Dentalinkcall } from '../DentalinkCall';
 
-export class DentalinkUpdater extends DentalinkCall {
+export class DentalinkUpdater extends Dentalinkcall {
   private maper: Function;
   private url: string;
   private filters: {};
 
-  constructor(elementConfig: updateConfig) {
+  constructor(elementConfig: UpdateConfig) {
     super();
     this.url = elementConfig.config.url;
     this.filters = elementConfig.config.filters;

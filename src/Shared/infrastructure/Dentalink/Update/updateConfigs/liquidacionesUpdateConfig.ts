@@ -1,6 +1,6 @@
-import { updateConfig } from './updateConfigInterface';
+import { UpdateConfig } from './updateConfigInterface';
 
-export const liquidacionesUpdateConfig = (fechaInicio: string): updateConfig => ({
+export const liquidacionesUpdateConfig = (fechaInicio: string): UpdateConfig => ({
   config: {
     url: '/liquidaciones',
     filters: {
@@ -21,6 +21,8 @@ export const liquidacionesUpdateConfig = (fechaInicio: string): updateConfig => 
         link_detalle: liquidacion.links.map((e: any) => {
           if (e.rel === 'detalles') {
             return e.href;
+          } else {
+            return undefined;
           }
         })[1]
       };

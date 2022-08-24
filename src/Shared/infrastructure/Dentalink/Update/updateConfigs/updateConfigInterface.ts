@@ -1,4 +1,4 @@
-export interface updateConfig {
+export interface UpdateConfig {
   config: {
     url: string;
     filters: {};
