@@ -1,12 +1,12 @@
 import { updateConfig } from './updateConfigInterface';
 
-export const pagosUpdateConfig = (fecha_recepcion: string, fecha_vencimiento: string): updateConfig => {
+export const pagosUpdateConfig = (fechaRecepcion: string, fechaVencimiento: string): updateConfig => {
   return {
     config: {
       url: '/pagos',
       filters: {
-        fecha_recepcion: { gte: fecha_recepcion },
-        fecha_vencimiento: { lte: fecha_vencimiento }
+        fecha_recepcion: { gte: fechaRecepcion },
+        fecha_vencimiento: { lte: fechaVencimiento }
       }
     },
     maper: (pagos: Array<any>) => {

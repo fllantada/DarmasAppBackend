@@ -27,15 +27,27 @@ export class UpdateProcess {
     const fechaInicio = this.dates.lunesSemanaAnterior();
     const fechaFin = this.dates.lunesEstaSemana();
     const newPagos = await this.dentalink.updatePagos(fechaInicio, fechaFin);
-    newPagos.length && (await this.mongoDb.save('Pagos', newPagos, 'id_pago_dentalink'));
-    const response = { msg: `Se actualizaron ${newPagos.length} pagos ` };
-    return response;
+
+    if (newPagos.length) {
+      await this.mongoDb.save('Pagos', newPagos, 'id_pago_dentalink');
+      const response = { msg: `Se actualizaron ${newPagos.length} pagos ` };
+      return response;
+    } else {
+      const response = { msg: `No se encontraron nuevos pagos ` };
+      return response;
+    }
   }
   async updateLiquidaciones(): Promise<{ msg: string }> {
     const fechaInicio = this.dates.haceUnMes();
     const newLiquidaciones: Array<any> = await this.dentalink.updateLiquidaciones(fechaInicio);
-    newLiquidaciones.length && (await this.mongoDb.save('Liquidaciones', newLiquidaciones, 'id_dentalink'));
-    const response = { msg: `Se actualizaron ${newLiquidaciones.length} liquidaciones ` };
-    return response;
+
+    if (newLiquidaciones.length) {
+      await this.mongoDb.save('Liquidaciones', newLiquidaciones, 'id_liquidacion_dentalink');
+      const response = { msg: `Se actualizaron ${newLiquidaciones.length} liquidaciones ` };
+      return response;
+    } else {
+      const response = { msg: `No se encontraron nuevas liquidaciones ` };
+      return response;
+    }
   }
 }
