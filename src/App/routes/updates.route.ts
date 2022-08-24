@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { UpdateController } from '../controllers/UpdateController';
+import { UpdateController } from '../controllers/updateController';
 
 export const register = (router: Router) => {
   const controller: UpdateController = new UpdateController();
