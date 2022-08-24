@@ -1,6 +1,6 @@
-import { updateConfig } from './updateConfigInterface';
+import { UpdateConfig } from './updateConfigInterface';
 
-export const sedesUpdateConfig = (): updateConfig => {
+export const sedesUpdateConfig = (): UpdateConfig => {
   return {
     config: {
       url: '/sucursales',
