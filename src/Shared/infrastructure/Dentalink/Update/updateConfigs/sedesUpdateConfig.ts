@@ -8,7 +8,6 @@ export const sedesUpdateConfig = (): UpdateConfig => ({
     }
   },
   maper: (sedes: any) => {
-    console.log(sedes);
     const sedesMapeadas = sedes.map((sede: any) => ({
       id_dentalink: sede.id,
       name: sede.nombre,

@@ -5,7 +5,7 @@ import { LiquidacionDentista } from './valueObjects/LiquidacionDentista';
 export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
   private nombreSucursal: string;
   public idSucursal: number;
-  private idDentistas: Array<string> = [''];
+  private idDentistas: Array<number> = [];
   private Efectivo = 0;
   private 'Mercadopago Dar Mas' = 0;
   private Bono = 0;
@@ -40,7 +40,7 @@ export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
   }
 
   agregarLiquidacion(liquidacion: LiquidacionDentista) {
-    const dentista = liquidacion.id_dentista.toString();
+    const dentista = liquidacion.id_dentista;
 
     if (!this.idDentistas.includes(dentista)) {
       this.idDentistas.push(dentista);

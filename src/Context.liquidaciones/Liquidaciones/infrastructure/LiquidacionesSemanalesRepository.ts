@@ -15,7 +15,6 @@ export class LiquidacionesSemanalesRepository implements LiquidacionesRepository
   }
 
   async getPagosSemanales(): Promise<Array<PagoSede>> {
-    console.log('Inicio pagos');
     const filter = {
       fecha_recepcion: {
         $gte: this.dates.lunesSemanaAnterior()
@@ -27,7 +26,7 @@ export class LiquidacionesSemanalesRepository implements LiquidacionesRepository
 
     const pagos = await this.dataBase.find('Pagos', filter);
     const pagosSede: Array<PagoSede> = pagos.map((pago: any) => ({
-      id_sucursal: pago.id_sucursal,
+      id_sucursal: Number(pago.id_sucursal),
       medio_pago: pago.medio_pago,
       monto: Number(pago.monto_pago)
     }));
@@ -40,9 +39,14 @@ export class LiquidacionesSemanalesRepository implements LiquidacionesRepository
         { fecha_termino: { $gte: this.dates.lunesSemanaAnterior() } }
       ]
     };
-    const liquidaciones = this.dataBase.find('Liquidaciones', filter);
-
-    return liquidaciones;
+    const liquidaciones = await this.dataBase.find('Liquidaciones', filter);
+    const liquidacionesDentistas = liquidaciones.map((liquidacion: any) => ({
+      id_sucursal: Number(liquidacion.id_sucursal),
+      id_dentista: Number(liquidacion.id_dentista),
+      monto: Number(liquidacion.monto),
+      link_detalle: liquidacion.link_detalle
+    }));
+    return liquidacionesDentistas;
   }
 
   async getSedes(): Promise<any> {

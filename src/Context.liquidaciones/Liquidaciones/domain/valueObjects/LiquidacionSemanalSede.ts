@@ -5,7 +5,7 @@ export interface LiquidacionSemanalSede {
   getResumenLiquidacion(): {
     nombre_sucursal: string;
     id_sucursal: number;
-    id_dentistas: Array<string>;
+    id_dentistas: Array<number>;
     Efectivo: number;
     'Mercadopago Dar Mas': number;
     Bono: number;
