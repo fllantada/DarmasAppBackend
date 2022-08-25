@@ -3,23 +3,23 @@ import { PagoSede } from './valueObjects/PagoSede';
 import { LiquidacionDentista } from './valueObjects/LiquidacionDentista';
 
 export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
-  private nombre_sucursal: string;
-  public id_sucursal: number;
-  private id_dentistas: Array<string> = [''];
+  private nombreSucursal: string;
+  public idSucursal: number;
+  private idDentistas: Array<string> = [''];
   private Efectivo = 0;
   private 'Mercadopago Dar Mas' = 0;
   private Bono = 0;
   private 'Mercadopago Especialista' = 0;
   private liquidacion = 0;
   private links: Array<string> = [];
-  private fecha_inicio: string;
-  private fecha_fin: String;
+  private fechaInicio: string;
+  private fechaFin: String;
 
   constructor(nombreSucursal: string, idSucursal: number, fechaInicio: string, fechaFin: string) {
-    this.nombre_sucursal = nombreSucursal;
-    this.id_sucursal = idSucursal;
-    this.fecha_inicio = fechaInicio;
-    this.fecha_fin = fechaFin;
+    this.nombreSucursal = nombreSucursal;
+    this.idSucursal = idSucursal;
+    this.fechaInicio = fechaInicio;
+    this.fechaFin = fechaFin;
   }
 
   agregarPago(pago: PagoSede) {
@@ -42,8 +42,8 @@ export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
   agregarLiquidacion(liquidacion: LiquidacionDentista) {
     const dentista = liquidacion.id_dentista.toString();
 
-    if (!this.id_dentistas.includes(dentista)) {
-      this.id_dentistas.push(dentista);
+    if (!this.idDentistas.includes(dentista)) {
+      this.idDentistas.push(dentista);
     }
 
     this.liquidacion += liquidacion.monto;
@@ -54,11 +54,11 @@ export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
 
   public getResumenLiquidacion() {
     return {
-      nombre_sucursal: this.nombre_sucursal,
-      id_sucursal: this.id_sucursal,
-      id_dentistas: this.id_dentistas,
-      fecha_inicio: this.fecha_inicio,
-      fecha_fin: this.fecha_fin,
+      nombre_sucursal: this.nombreSucursal,
+      id_sucursal: this.idSucursal,
+      id_dentistas: this.idDentistas,
+      fecha_inicio: this.fechaInicio,
+      fecha_fin: this.fechaFin,
       Efectivo: this.Efectivo,
       'Mercadopago Dar Mas': this['Mercadopago Dar Mas'],
       Bono: this.Bono,

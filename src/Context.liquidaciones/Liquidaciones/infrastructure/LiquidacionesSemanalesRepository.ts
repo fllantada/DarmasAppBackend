@@ -26,13 +26,11 @@ export class LiquidacionesSemanalesRepository implements LiquidacionesRepository
     };
 
     const pagos = await this.dataBase.find('Pagos', filter);
-    const pagosSede: Array<PagoSede> = pagos.map((pago: any) => {
-      return {
-        id_sucursal: pago.id_sucursal,
-        medio_pago: pago.medio_pago,
-        monto: Number(pago.monto_pago)
-      };
-    });
+    const pagosSede: Array<PagoSede> = pagos.map((pago: any) => ({
+      id_sucursal: pago.id_sucursal,
+      medio_pago: pago.medio_pago,
+      monto: Number(pago.monto_pago)
+    }));
     return pagosSede;
   }
   async getLiquidacionesSemanales(): Promise<Array<LiquidacionDentista>> {

@@ -30,7 +30,7 @@ export class LiquidacionesSemanales {
     pagos.forEach((pago: PagoSede) => {
       const idSucursal = pago.id_sucursal;
       const liquidacionSede: LiquidacionSemanalSedeCreator = liquidacionesSedes.filter(
-        (liq: LiquidacionSemanalSedeCreator) => liq.id_sucursal === idSucursal
+        (liq: LiquidacionSemanalSedeCreator) => liq.idSucursal === idSucursal
       )[0];
       liquidacionSede.agregarPago(pago);
     });
@@ -39,7 +39,7 @@ export class LiquidacionesSemanales {
     liquidaciones.forEach((liquidacion: LiquidacionDentista) => {
       const idSucursal = liquidacion.id_sucursal;
       const liquidacionSede: LiquidacionSemanalSedeCreator = liquidacionesSedes.filter(
-        (liq: LiquidacionSemanalSedeCreator) => liq.id_sucursal === idSucursal
+        (liq: LiquidacionSemanalSedeCreator) => liq.idSucursal === idSucursal
       )[0];
       liquidacionSede.agregarLiquidacion(liquidacion);
     });
