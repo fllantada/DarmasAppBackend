@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { UpdateProcess } from '../../Context.update/aplication/UpdateProcess';
 import { Controller } from '../shared/interfaces/Controller';
-import { DentalinkRepository } from '../../Shared/infrastructure/DentalinkRepository';
+import { DentalinkRepository } from '../../Shared/infrastructure/dentalinkRepository';
 import { MongoRepository } from '../../Shared/infrastructure/MongoRepository';
 import { DatesRepository } from '../../Shared/infrastructure/DatesRepository';
 
