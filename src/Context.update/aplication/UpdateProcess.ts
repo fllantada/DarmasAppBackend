@@ -24,10 +24,10 @@ export class UpdateProcess {
     console.log('termine el proceso');
   }
   async isActive(sede: { id_dentalink: string }): Promise<boolean> {
-    let filter = {
+    const filter = {
       id_sucursal: sede.id_dentalink
     };
-    let hayPagos = await this.mongoDb.findOne('Pagos', filter);
+    const hayPagos = await this.mongoDb.findOne('Pagos', filter);
     if (hayPagos) {
       return true;
     } else {

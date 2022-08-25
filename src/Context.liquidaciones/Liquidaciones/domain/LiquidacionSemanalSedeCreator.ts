@@ -6,11 +6,11 @@ export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
   private nombre_sucursal: string;
   public id_sucursal: number;
   private id_dentistas: Array<string> = [''];
-  private Efectivo: number = 0;
-  private 'Mercadopago Dar Mas': number = 0;
-  private Bono: number = 0;
-  private 'Mercadopago Especialista': number = 0;
-  private liquidacion: number = 0;
+  private Efectivo = 0;
+  private 'Mercadopago Dar Mas' = 0;
+  private Bono = 0;
+  private 'Mercadopago Especialista' = 0;
+  private liquidacion = 0;
   private links: Array<string> = [];
   private fecha_inicio: string;
   private fecha_fin: String;
