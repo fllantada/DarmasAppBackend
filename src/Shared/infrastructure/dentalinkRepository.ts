@@ -1,9 +1,8 @@
-import { LiquidacionesSemanalesRepository } from '../../Context.liquidaciones/Liquidaciones/domain/LiquidacionesSemanalesRepository';
 import { pagosUpdateConfig } from './Dentalink/Update/updateConfigs/pagosUpdateConfig';
 import { liquidacionesUpdateConfig } from './Dentalink/Update/updateConfigs/liquidacionesUpdateConfig';
 import { DentalinkUpdater } from './Dentalink/Update/DentalinkUpdater';
 import { sedesUpdateConfig } from './Dentalink/Update/updateConfigs/sedesUpdateConfig';
-export class DentalinkRepository implements LiquidacionesSemanalesRepository {
+export class DentalinkRepository {
   constructor() {}
 
   async updatePagos(fechaInicio: string, fechaFin: string): Promise<Array<any>> {
@@ -29,10 +28,4 @@ export class DentalinkRepository implements LiquidacionesSemanalesRepository {
     const updatedData = await updater.update();
     return updatedData;
   }
-
-  async getPagosSemana(fechaInicio: string, fechaFin: string): Promise<any> {
-    //const dentalink = new Dentalink({});
-    //const url = dentalink.url();
-  }
-  async getLiquidacionesSemanales(): Promise<any> {}
 }

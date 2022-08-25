@@ -1,4 +1,6 @@
-import { Liquidacion } from '../domain/Liquidacion';
+import { LiquidacionSemanalSedeCreator } from '../domain/LiquidacionSemanalSedeCreator';
+import { LiquidacionDentista } from '../domain/valueObjects/LiquidacionDentista';
+import { PagoSede } from '../domain/valueObjects/PagoSede';
 
 export class LiquidacionesSemanales {
   private repository: any;
@@ -7,58 +9,122 @@ export class LiquidacionesSemanales {
     this.repository = repository;
   }
 
-  async run(): Promise<Array<Liquidacion>> {
-    console.log('Inicio aplicacion y llamo a pagos');
-    const pagos = await this.repository.getPagosSemanales();
+  async run(): Promise<any> {
+    //traigo pagos sedes y liquidaciones de la BD
+    const pagos: Array<PagoSede> = await this.repository.getPagosSemanales();
     const sedes = await this.repository.getSedes();
     const liquidaciones = await this.repository.getLiquidacionesSemanales();
-    console.log('tengo datos -Pagos:', pagos.length, 'sedes:', sedes.length, 'liquidaciones:', liquidaciones.length);
-    const pagosPorSucursal = this.asignarPagos(pagos, sedes);
+    //por cada sede creo un creador de liquidaciones
+    const liquidacionesSedes = sedes.map((sede: any) => {
+      return new LiquidacionSemanalSedeCreator(
+        sede.name,
+        sede.id_dentalink,
+        this.repository.fechaInicio,
+        this.repository.fechaFin
+      );
+    });
 
-    const liquidacionesPorSucursal = this.agruparLiquidaciones(liquidaciones, sedes);
+    //recorro pagos
+    pagos.forEach((pago: PagoSede) => {
+      const idSucursal = pago.id_sucursal;
+      const liquidacionSede: LiquidacionSemanalSedeCreator = liquidacionesSedes.filter(
+        (liquidacion: LiquidacionSemanalSedeCreator) => {
+          return liquidacion.id_sucursal == idSucursal;
+        }
+      )[0];
+      liquidacionSede.agregarPago(pago);
+    });
 
-    const resumenLiquidaciones = this.crearLiquidaciones(pagosPorSucursal, liquidacionesPorSucursal);
+    //recorro liquidaciones
+    liquidaciones.forEach((liquidacion: LiquidacionDentista) => {
+      const idSucursal = liquidacion.id_sucursal;
+      const liquidacionSede: LiquidacionSemanalSedeCreator = liquidacionesSedes.filter(
+        (liquidacion: LiquidacionSemanalSedeCreator) => {
+          return liquidacion.id_sucursal == idSucursal;
+        }
+      )[0];
+      liquidacionSede.agregarLiquidacion(liquidacion);
+    });
 
-    console.log(resumenLiquidaciones);
-    return resumenLiquidaciones;
+    liquidacionesSedes.forEach((liquidacionTerminada: LiquidacionSemanalSedeCreator) => {
+      const liq = liquidacionTerminada.getResumenLiquidacion();
+      console.log(liq);
+    });
+    // console.log(pagos[0], liquidaciones[0], liquidacionesSedes);
+
+    //agrupo liquidaciones de misma sucursal
+
+    // const liquidacionesAgrupadas = this.agruparLiquidaciones(liquidaciones, sedes);
+    // //separo los pagos por Sede
+    // const pagosPorSucursal = this.asignarPagos(pagos, sedes);
+
+    // console.log(pagosPorSucursal);
+
+    // const resumenLiquidaciones = this.crearLiquidaciones(pagosPorSucursal, liquidacionesAgrupadas);
+
+    // //console.log(resumenLiquidaciones);
+
+    // return resumenLiquidaciones;
   }
-  private asignarPagos(pagos: Array<any>, sedes: Array<any>): Array<any> {
-    return [];
+
+  asignarPagos(pagos: Array<any>, sedes: Array<any>): Array<any> {
+    const pagosPorSucursal: any = [];
+
+    for (let i = 0; i < pagos.length; i++) {
+      const sucursal = pagosPorSucursal.find((e: any) => e.nombre_sucursal == pagos[i].nombre_sucursal);
+
+      if (sucursal) {
+        if (sucursal.hasOwnProperty(pagos[i].medio_pago)) {
+          sucursal[pagos[i].medio_pago] = sucursal[pagos[i].medio_pago] + pagos[i].monto_pago;
+        } else {
+          sucursal[pagos[i].medio_pago] = pagos[i].monto_pago;
+        }
+      }
+      if (!sucursal) {
+        pagosPorSucursal.push({
+          nombre_sucursal: pagos[i].nombre_sucursal,
+          [pagos[i].medio_pago]: pagos[i].monto_pago,
+          id_sucursal: pagos[i].id_sucursal
+        });
+      }
+    }
+    pagosPorSucursal.sort((a: any, b: any) => a.nombre_sucursal.localeCompare(b.nombre_sucursal));
+    return pagosPorSucursal;
   }
-  private agruparLiquidaciones(liquidaciones: Array<any>, sedes: Array<any>): Array<any> {
+  agruparLiquidaciones(liquidaciones: Array<any>, sedes: Array<any>): Array<any> {
     //si tengo 2 dentistas que estan en la misma sede los agrupa a una sola liquidacion sumando los montos
 
-    console.log('las liquidaciones sin agrupar son:', liquidaciones.length);
+    const liquidacionesAgrupadas = liquidaciones.reduce((liqAgrupadas: any, liquidacion: any) => {
+      const finded = liqAgrupadas.find((liq: any) => liq.id_sucursal == liquidacion.id_sucursal);
+      let nombreSede = sedes.find(sede => sede.id_dentalink == liquidacion.id_sucursal).name;
 
-    const liquidacionesAgrupadas = liquidaciones.reduce(
-      (liqAgrupadas: any, liquidacion: any, index: number, Liquidaciones: Array<any>) => {
-        console.log('ejecutando el reduce en la liq:', liquidacion.id_sucursal);
+      if (!finded) {
+        liqAgrupadas.push({ ...liquidacion._doc, nombre_sucursal: nombreSede });
+      } else {
+        finded.monto += liquidacion.monto;
+        finded.id_dentista = finded.id_dentista + ',' + liquidacion.id_dentista;
+        finded.id_dentalink = finded.id_dentalink + ',' + liquidacion.id_dentalink;
+      }
 
-        //encuentro la sede correspondiente a la liquidacion
-        const finded = liqAgrupadas.find((liq: any) => liq.id_sucursal == liquidacion.id_sucursal);
+      return liqAgrupadas;
+    }, []);
 
-        if (!finded) {
-          let nombreSede = sedes.find(sede => sede.id_dentalink == liquidacion.id_sucursal).name;
-
-          liqAgrupadas.push({ ...liquidacion._doc, nombre_sucursal: nombreSede });
-        } else {
-          console.log('Encontre duplicado lo agrupo', 'finded es:', finded, 'liquidacion actual es:', liquidacion);
-          finded.monto += liquidacion.monto;
-          finded.id_dentista = finded.id_dentista + ',' + liquidacion.id_dentista;
-          finded.id_dentalink = finded.id_dentalink + ',' + liquidacion.id_dentalink;
-          console.log('Ahora queda la liquidacion en:', finded);
-        }
-
-        return liqAgrupadas;
-      },
-      []
-    );
-
-    console.log(liquidacionesAgrupadas);
-
-    return [];
+    return liquidacionesAgrupadas;
   }
   crearLiquidaciones(pagosPorSucursal: Array<any>, liquidacionesPorSucursal: Array<any>): Array<any> {
-    return [];
+    pagosPorSucursal.forEach((e: any) => {
+      for (let i = 0; i < liquidacionesPorSucursal.length; i++) {
+        if (e.id_sucursal === liquidacionesPorSucursal[i].id_sucursal) {
+          if (e.hasOwnProperty('liquidacion')) {
+            e.liquidacion = e.liquidacion + liquidacionesPorSucursal[i].monto;
+          } else {
+            e.liquidacion = liquidacionesPorSucursal[i].monto;
+            e.link = `${process.env.BASE_URL}/api/detalleliquidaciones/${liquidacionesPorSucursal[i].id_dentalink}`;
+          }
+        }
+      }
+    });
+
+    return pagosPorSucursal;
   }
 }
