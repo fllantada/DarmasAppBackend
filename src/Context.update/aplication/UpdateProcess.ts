@@ -1,7 +1,3 @@
-// import { DentalinkRepository } from '../../shared/infrastructure/dentalinkRepository';
-// import { MongoRepository } from '../../shared/infrastructure/MongoRepository';
-// import { DatesRepository } from '../../shared/infrastructure/DatesRepository';
-
 export class UpdateProcess {
   private dentalink: any;
   private mongoDb: any;

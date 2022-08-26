@@ -60,9 +60,9 @@ export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
       fecha_inicio: this.fechaInicio,
       fecha_fin: this.fechaFin,
       Efectivo: this.Efectivo,
-      'Mercadopago Dar Mas': this['Mercadopago Dar Mas'],
+      'Mercadopago Dar Mas': this['Mercadopago Dar Mas'], // Modificar
       Bono: this.Bono,
-      'Mercadopago Especialista': this['Mercadopago Especialista'],
+      'Mercadopago Especialista': this['Mercadopago Especialista'], //modificar
       liquidacion: this.liquidacion,
       links: this.links
     };
