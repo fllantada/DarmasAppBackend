@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "baseUrl": ".",
+  "baseUrl": "https://darmasback.herokuapp.com/",
   "exclude": ["node_modules", "tests"]
 }
