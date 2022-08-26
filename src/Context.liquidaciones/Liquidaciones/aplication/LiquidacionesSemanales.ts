@@ -1,6 +1,7 @@
 import { LiquidacionSemanalSedeCreator } from '../domain/LiquidacionSemanalSedeCreator';
 import { LiquidacionDentista } from '../domain/valueObjects/LiquidacionDentista';
 import { PagoSede } from '../domain/valueObjects/PagoSede';
+import { Sede } from '../domain/valueObjects/Sede';
 
 export class LiquidacionesSemanales {
   private repository: any;
@@ -13,8 +14,8 @@ export class LiquidacionesSemanales {
   async run(): Promise<any> {
     //traigo pagos sedes y liquidaciones de la BD
     const pagos: Array<PagoSede> = await this.repository.getPagosSemanales();
-    const sedes = await this.repository.getSedes();
-    const liquidaciones = await this.repository.getLiquidacionesSemanales();
+    const sedes: Array<Sede> = await this.repository.getSedes();
+    const liquidaciones: Array<LiquidacionDentista> = await this.repository.getLiquidacionesSemanales();
     //por cada sede creo un creador de liquidaciones
     const liquidacionesSedes = sedes.map(
       (sede: any) =>
