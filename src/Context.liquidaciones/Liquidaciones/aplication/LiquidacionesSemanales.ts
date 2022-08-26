@@ -1,10 +1,11 @@
+import { LiquidacionesRepository } from '../domain/LiquidacionesRepository';
 import { LiquidacionSemanalSedeCreator } from '../domain/LiquidacionSemanalSedeCreator';
 import { LiquidacionDentista } from '../domain/valueObjects/LiquidacionDentista';
 import { PagoSede } from '../domain/valueObjects/PagoSede';
 import { Sede } from '../domain/valueObjects/Sede';
 
 export class LiquidacionesSemanales {
-  private repository: any;
+  private repository: LiquidacionesRepository;
   private liquidacionesTerminadas: Array<any> = [];
 
   constructor(repository: any) {
@@ -29,10 +30,13 @@ export class LiquidacionesSemanales {
 
     //recorro pagos y los voy agregando a las liquidaciones de la sede correspondiente
     pagos.forEach((pago: PagoSede) => {
+      //a que sede pertenece?
       const idSucursal = pago.id_sucursal;
+      //filtro
       const liquidacionSede: LiquidacionSemanalSedeCreator = liquidacionesSedes.filter(
         (liq: LiquidacionSemanalSedeCreator) => liq.idSucursal === idSucursal
       )[0];
+      //agrego el pago
       liquidacionSede.agregarPago(pago);
     });
 
