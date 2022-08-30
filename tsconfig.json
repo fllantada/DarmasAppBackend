@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "baseUrl": ".",
     "esModuleInterop": true,
-    "target": "es6",
+    "target": "es6", //  el ema script q usamos
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": false,
-    "rootDir": ".",
+    "rootDir": "./src", //donde esta nuestro codigo
     "strict": true,
     "noEmit": false,
     "resolveJsonModule": true,
     "noUnusedLocals": true,
-    "outDir": "./dist"
+    "outDir": "./dist" //donde se va a poner el codigo compilado
   },
   "include": [
     "src/**/**.ts"

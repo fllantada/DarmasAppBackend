@@ -6,6 +6,8 @@ dotenv.config();
 //Unica funcion iniciar la aplicacion Sedes que nos da una ruta para obtener todas las sedes
 
 try {
+  console.log('Iniciando la aplicacion');
+  console.log('Prueba me cambia con guardar excelente');
   new DarmasApp().start();
 } catch (e) {
   process.exit(1);

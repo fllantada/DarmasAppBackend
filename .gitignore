@@ -1,7 +1,7 @@
 node_modules/
-dist/
 .tmp
 logs/
 .env
 data
 test-results.xml
+dist/

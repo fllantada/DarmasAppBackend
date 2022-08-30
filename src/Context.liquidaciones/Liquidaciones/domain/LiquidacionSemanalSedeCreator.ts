@@ -7,9 +7,9 @@ export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
   public idSucursal: number;
   private idDentistas: Array<number> = [];
   private Efectivo = 0;
-  private 'Mercadopago Dar Mas' = 0;
+  private mDarmas = 0;
   private Bono = 0;
-  private 'Mercadopago Especialista' = 0;
+  private mEspecialista = 0;
   private liquidacion = 0;
   private links: Array<string> = [];
   private fechaInicio: string;
@@ -28,13 +28,13 @@ export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
         this.Efectivo += pago.monto;
         break;
       case 'Mercadopago Dar Mas':
-        this['Mercadopago Dar Mas'] += pago.monto;
+        this.mDarmas += pago.monto;
         break;
       case 'Bono':
         this.Bono += pago.monto;
         break;
       case 'Mercadopago Especialista':
-        this['Mercadopago Especialista'] += pago.monto;
+        this.mEspecialista += pago.monto;
         break;
     }
   }
@@ -60,9 +60,9 @@ export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
       fecha_inicio: this.fechaInicio,
       fecha_fin: this.fechaFin,
       Efectivo: this.Efectivo,
-      'Mercadopago Dar Mas': this['Mercadopago Dar Mas'], // Modificar
+      'Mercadopago Dar Mas': this.mDarmas, // Modificar
       Bono: this.Bono,
-      'Mercadopago Especialista': this['Mercadopago Especialista'], //modificar
+      'Mercadopago Especialista': this.mEspecialista, //modificar
       liquidacion: this.liquidacion,
       links: this.links
     };
