@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "target": "es6", //  el ema script q usamos
     "noImplicitAny": true,
