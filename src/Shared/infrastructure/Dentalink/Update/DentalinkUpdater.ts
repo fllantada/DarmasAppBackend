@@ -15,10 +15,9 @@ export class DentalinkUpdater extends DentalinkCaller {
   public async update(): Promise<Array<any>> {
     //create url
     const urlDentalink = await this.createDentalinkUrl(this.url, this.filters);
-    console.log ("URL: ", urlDentalink)
+    console.log('URL: ', urlDentalink);
     //get data
     const data = await this.send(urlDentalink);
-    console.log ("data es:", data)
     //map data
     const dataMaped = this.maper(data);
     //return data

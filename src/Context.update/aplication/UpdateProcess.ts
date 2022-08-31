@@ -10,15 +10,12 @@ export class UpdateProcess {
   }
 
   async run(): Promise<void> {
-    console.log ("Inicio update process")
     const pagosResponse = await this.updatePagos();
     console.log(pagosResponse.msg);
     const liquidacionesResponse = await this.updateLiquidaciones();
     console.log(liquidacionesResponse.msg);
     const sedesResponse = await this.updateSedes();
     console.log(sedesResponse.msg);
-
-    console.log('termine el proceso');
   }
   async isActive(sede: { id_dentalink: string }): Promise<boolean> {
     const filter = {
@@ -53,7 +50,7 @@ export class UpdateProcess {
   async updatePagos(): Promise<{ msg: string }> {
     const fechaInicio = this.dates.lunesSemanaAnterior();
     const fechaFin = this.dates.lunesEstaSemana();
-    console.log ("Inicio updatePagos")
+
     const newPagos = await this.dentalink.updatePagos(fechaInicio, fechaFin);
 
     if (newPagos.length) {

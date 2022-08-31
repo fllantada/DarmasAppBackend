@@ -1,5 +1,5 @@
 {
-  
+  "extends":["tslint:latest","tslint-config-prettier"],
   "defaultSeverity": "error",
   "rules": {
     "adjacent-overload-signatures": true,

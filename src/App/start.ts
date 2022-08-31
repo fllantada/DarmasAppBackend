@@ -7,7 +7,7 @@ dotenv.config();
 
 try {
   console.log('Iniciando la aplicacion');
-  console.log('Prueba me cambia con guardar excelente');
+
   new DarmasApp().start();
 } catch (e) {
   process.exit(1);

@@ -4,7 +4,7 @@ export class ModelFinder {
   findModel(collectionName: string): any {
     console.log('Inicio find model');
     //busco un archivo que este en la carpeta models y que tenga el nombre de la coleccion
-    console.log (`${__dirname}/models/${collectionName.toLowerCase()}.ts`)
+
     const modelsPaths: string[] = glob.sync(`${__dirname}/models/${collectionName.toLowerCase()}.{ts,js}`);
     console.log('modelsPaths:', modelsPaths);
     //arrojo error si no encuentro el modelo

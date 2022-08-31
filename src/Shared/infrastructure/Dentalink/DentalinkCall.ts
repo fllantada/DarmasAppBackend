@@ -10,12 +10,11 @@ export class DentalinkCaller {
   }
 
   async send(url: string): Promise<any> {
-    console.log ("Inicio send")
     let response: DentalinkResponse = {
       data: [],
       links: { next: url }
     };
-    console.log (response)
+    console.log(response);
     do {
       response = await this.getDentalink(response.links.next);
       this.addToData(response.data);
@@ -31,9 +30,7 @@ export class DentalinkCaller {
   }
 
   private async getDentalink(url: string): Promise<DentalinkResponse> {
-    console.log ("Inicio get Dentalink")
     const { data } = await this.customAxios.get(url);
-    console.log ("Data es:", data)
 
     return { data: data.data, links: data.links };
   }
