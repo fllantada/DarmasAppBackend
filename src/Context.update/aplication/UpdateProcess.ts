@@ -10,6 +10,7 @@ export class UpdateProcess {
   }
 
   async run(): Promise<void> {
+    console.log ("Inicio update process")
     const pagosResponse = await this.updatePagos();
     console.log(pagosResponse.msg);
     const liquidacionesResponse = await this.updateLiquidaciones();
@@ -52,6 +53,7 @@ export class UpdateProcess {
   async updatePagos(): Promise<{ msg: string }> {
     const fechaInicio = this.dates.lunesSemanaAnterior();
     const fechaFin = this.dates.lunesEstaSemana();
+    console.log ("Inicio updatePagos")
     const newPagos = await this.dentalink.updatePagos(fechaInicio, fechaFin);
 
     if (newPagos.length) {

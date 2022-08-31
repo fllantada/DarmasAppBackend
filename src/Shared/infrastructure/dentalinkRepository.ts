@@ -9,8 +9,10 @@ export class DentalinkRepository {
     //creo la configuracion para el update pasando las fechas que llegan por parametro desde la APP
     const pagosConfig = pagosUpdateConfig(fechaInicio, fechaFin);
     //creo instancia del updater con la configuracion
+    console.log ("Desde dentalink")
     const updater = new DentalinkUpdater(pagosConfig);
     //ejecuto el update
+    console.log ("Tengo el updater")
     const updatedData = await updater.update();
     //devuelvo los pagos actualizados
     return updatedData;
