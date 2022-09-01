@@ -1,6 +1,12 @@
-FROM node:14-slim
+FROM node:16 as backend
 
-WORKDIR /code
+WORKDIR .
 
 COPY package.json package-lock.json ./
 RUN npm install
+COPY . .
+EXPOSE 4000
+
+RUN npm start
+
+
