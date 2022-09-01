@@ -11,7 +11,7 @@
     "npm": ">=6.14.0"
   },
   "scripts": {
-    "dev": "ts-node-dev ./src/App/start.ts",
+    "dev": "ts-node-dev --poll ./src/App/start.ts",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node ./dist/App/start.js",
     "lint": "tslint src/**/*.ts{,x}",

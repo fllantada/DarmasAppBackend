@@ -6,7 +6,7 @@ dotenv.config();
 // Unica funcion iniciar la aplicacion
 
 try {
-  console.log('Iniciando la aplicacion1');
+  console.log('Iniciando la aplicacion!  impresionante');
 
   new DarmasApp().start();
 } catch (e) {
