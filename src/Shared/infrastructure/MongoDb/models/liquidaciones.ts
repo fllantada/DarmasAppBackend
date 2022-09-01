@@ -1,13 +1,13 @@
 import { Schema, model } from 'mongoose';
 interface ILiquidaciones {
   id_dentalink: number;
-  id_dentista: String;
-  id_sucursal: String;
+  id_dentista: string;
+  id_sucursal: string;
   fecha_inicio: Date;
   fecha_termino: Date;
-  monto: Number;
-  activa: Number;
-  link_detalle: String;
+  monto: number;
+  activa: number;
+  link_detalle: string;
   fecha_carga: { type: Date };
 }
 const Liquidaciones = new Schema<ILiquidaciones>({

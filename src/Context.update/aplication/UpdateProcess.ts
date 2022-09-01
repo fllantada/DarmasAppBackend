@@ -30,16 +30,16 @@ export class UpdateProcess {
   }
   async updateSedes(): Promise<{ msg: string }> {
     const newSedes: Array<any> = await this.dentalink.updateSedes();
-    const activeSedes = [];
+    let sedesAmount = 0;
 
     if (newSedes.length) {
-      for (let i = 0; i < newSedes.length; i++) {
-        if (await this.isActive(newSedes[i])) {
-          await this.mongoDb.save('Sedes', [newSedes[i]], 'id_dentalink');
-          activeSedes.push(newSedes[i]);
+      for (const sede of newSedes) {
+        if (await this.isActive(sede)) {
+          await this.mongoDb.save('Sedes', [sede], 'id_dentalink');
+          sedesAmount++;
         }
       }
-      const response = { msg: `Se actualizaron  sedes ${activeSedes.length}` };
+      const response = { msg: `Se actualizaron  sedes ${sedesAmount}` };
       return response;
     } else {
       const response = { msg: `No se encontraron nuevas sedes Activas ` };

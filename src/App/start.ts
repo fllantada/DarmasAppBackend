@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-//Unica funcion iniciar la aplicacion Sedes que nos da una ruta para obtener todas las sedes
+// Unica funcion iniciar la aplicacion
 
 try {
   console.log('Iniciando la aplicacion1');

@@ -13,7 +13,7 @@ export interface LiquidacionSemanalSede {
     liquidacion: number;
     links: Array<string>;
     fecha_inicio: string;
-    fecha_fin: String;
+    fecha_fin: string;
   };
   agregarPago(pago: PagoSede): void;
   agregarLiquidacion(liquidacion: LiquidacionDentista): void;

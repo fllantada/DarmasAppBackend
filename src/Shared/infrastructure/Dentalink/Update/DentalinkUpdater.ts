@@ -2,7 +2,7 @@ import { UpdateConfig } from './updateConfigs/updateConfigInterface';
 import { DentalinkCaller } from '../DentalinkCall';
 
 export class DentalinkUpdater extends DentalinkCaller {
-  private maper: Function;
+  private maper: (data: any) => Array<any>;
   private url: string;
   private filters: {};
 
@@ -13,14 +13,14 @@ export class DentalinkUpdater extends DentalinkCaller {
     this.maper = elementConfig.maper;
   }
   public async update(): Promise<Array<any>> {
-    //create url
+    // create url
     const urlDentalink = await this.createDentalinkUrl(this.url, this.filters);
     console.log('URL: ', urlDentalink);
-    //get data
+    // get data
     const data = await this.send(urlDentalink);
-    //map data
+    // map data
     const dataMaped = this.maper(data);
-    //return data
+    // return data
     return dataMaped;
   }
 }

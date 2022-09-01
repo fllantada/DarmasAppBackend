@@ -12,15 +12,17 @@ export class MongoRepository {
     return new ModelFinder().findModel(collectionName);
   }
   async save(collectionName: string, data: Array<any>, uniqueValue: string) {
-    //busco la collection
+    // busco la collection
     const collection = this.getCollection(collectionName);
-    //recorro el array de datos
-    for (let i = 0; i < data.length; i++) {
-      //update es el valor a guardar y filter es el valor que se usa para buscar
+    // recorro el array de datos
+
+    for (const value of data) {
+      // update es el valor a guardar y filter es el valor que se usa para buscar
+
       const filter = {
-        [uniqueValue]: data[i][uniqueValue]
+        [uniqueValue]: value[uniqueValue]
       };
-      const update = data[i];
+      const update = value;
 
       await collection.findOneAndUpdate(filter, update, {
         new: true,
