@@ -16,17 +16,6 @@
     "class-name": true,
     "indent": [true, "spaces"],
     "no-angle-bracket-type-assertion": true,
-    "ter-max-len": [
-      true,
-      {
-        "code": 120,
-        "tabWidth": 2,
-        "ignoreImports": true,
-        "ignoreUrls": true,
-        "ignoreTemplateLiterals": true,
-        "ignoreStrings": true
-      }
-    ],
     "no-consecutive-blank-lines": [true, 1],
     "member-access": false,
     "no-trailing-whitespace": true,
