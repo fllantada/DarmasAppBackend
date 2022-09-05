@@ -11,7 +11,7 @@ COPY . .
 RUN npm run build
 
 
-CMD ["node", "dist/App/start.ts"]
+CMD ["node", "dist/App/start.js"]
 
 
 
