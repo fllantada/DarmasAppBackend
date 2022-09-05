@@ -32,7 +32,7 @@ export class Server {
     this.express.use(router);
     const routeRegister = new RouteRegister(router, this.dirname);
     routeRegister.findRoutes();
-    // registerRoutes(router);
+    console.log('Registre rutas');
 
     router.use((err: Error, req: Request, res: Response, next: () => void) => {
       res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message);
