@@ -17,13 +17,13 @@ ENV NODE_ENV = ${NODE_ENV}
 
 WORKDIR /app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install --only=production
 
-COPY --from=development ./dist ./dist
+COPY --from=development ./app/dist ./dist
 
-CMD ["node", "dist/App/start.ts"]
+CMD ["node", "app/dist/App/start.ts"]
 
 
 

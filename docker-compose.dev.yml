@@ -4,7 +4,7 @@ services:
   api:
     build:
       context: .
-      target: development #sirve para que frene en el primer FROM
+      target: production #sirve para que frene en el primer FROM
     volumes:
       - ./:/app
       - /app/node_modules
