@@ -8,8 +8,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run start
-
+RUN npm run build
 
 
 CMD ["node", "dist/App/start.ts"]
