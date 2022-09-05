@@ -23,7 +23,7 @@ RUN npm install --only=production
 
 COPY --from=development ./app/dist ./dist
 
-CMD ["node", "app/dist/App/start.ts"]
+CMD ["node", "dist/App/start.ts"]
 
 
 
