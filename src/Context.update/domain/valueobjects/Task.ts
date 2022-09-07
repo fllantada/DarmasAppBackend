@@ -1,7 +1,6 @@
-import { TaskConfig } from './TaskConfig';
-
 export interface Task {
-  action: () => void;
-  config: TaskConfig;
+  name: string;
+  action: (arg0?: any) => {};
+  interval: {};
   status: 'on' | 'off';
 }

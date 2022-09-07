@@ -1,4 +1,5 @@
 import { DarmasApp } from './DarmasApp';
+import { UpdateApp } from './UpdateApp';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -8,8 +9,8 @@ dotenv.config();
 try {
   console.log('Iniciando la aplicacion!  impresionante');
 
+  new UpdateApp().start(); //bucle de actualizacion
   new DarmasApp().start();
-  //new CronsJobsSetup.start(); //bucle de actualizacion
 } catch (e) {
   process.exit(1);
 }
