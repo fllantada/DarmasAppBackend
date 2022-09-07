@@ -5,6 +5,6 @@ import { updateSedes } from './updateSedes';
 export default {
   name: 'sedes',
   action: updateSedes,
-  config: {} as any,
+  interval: 'Mensual',
   status: 'on'
 };

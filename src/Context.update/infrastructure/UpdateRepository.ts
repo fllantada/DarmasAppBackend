@@ -1,4 +1,4 @@
-import { TaskManager } from '../../App/updateTasks/TaskManager';
+import { TaskManager } from '../aplication/updateTasks/TaskManager';
 
 export class UpdateRepository extends TaskManager {
   constructor() {

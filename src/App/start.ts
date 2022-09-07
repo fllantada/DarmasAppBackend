@@ -1,5 +1,5 @@
 import { DarmasApp } from './DarmasApp';
-import { UpdateApp } from './UpdateApp';
+import { UpdateApp } from '../Context.update/aplication/UpdateApp';
 import dotenv from 'dotenv';
 
 dotenv.config();

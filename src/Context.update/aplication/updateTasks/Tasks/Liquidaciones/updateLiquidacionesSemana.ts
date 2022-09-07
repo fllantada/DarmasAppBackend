@@ -1,6 +1,6 @@
-import { DatesRepository } from '../../../../../src/Shared/infrastructure/DatesRepository';
-import { DentalinkRepository } from '../../../../../src/Shared/infrastructure/dentalinkRepository';
-import { MongoRepository } from '../../../../../src/Shared/infrastructure/MongoRepository';
+import { DatesRepository } from '../../../../../Shared/infrastructure/DatesRepository';
+import { DentalinkRepository } from '../../../../../Shared/infrastructure/dentalinkRepository';
+import { MongoRepository } from '../../../../../Shared/infrastructure/MongoRepository';
 
 export default async function updateLiquidacionesSemana(): Promise<{ msg: string }> {
   const fechaInicio = new DatesRepository().haceUnMes();

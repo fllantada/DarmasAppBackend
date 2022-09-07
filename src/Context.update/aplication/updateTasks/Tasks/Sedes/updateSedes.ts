@@ -1,5 +1,5 @@
-import { DentalinkRepository } from '../../../../../src/Shared/infrastructure/dentalinkRepository';
-import { MongoRepository } from '../../../../../src/Shared/infrastructure/MongoRepository';
+import { DentalinkRepository } from '../../../../../Shared/infrastructure/dentalinkRepository';
+import { MongoRepository } from '../../../../../Shared/infrastructure/MongoRepository';
 
 async function isActive(sede: { id_dentalink: string }): Promise<boolean> {
   const filter = {

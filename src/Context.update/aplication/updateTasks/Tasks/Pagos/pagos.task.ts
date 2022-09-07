@@ -5,6 +5,6 @@ import updatePagosSemana from './updatePagosSemana';
 export default {
   name: 'pagos',
   action: updatePagosSemana,
-  config: {} as any,
+  interval: 'Diario',
   status: 'on'
 };
