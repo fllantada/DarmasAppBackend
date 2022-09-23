@@ -14,6 +14,7 @@ export class DentalinkCaller {
       data: [],
       links: { next: url }
     };
+    console.log(response);
     do {
       response = await this.getDentalink(response.links.next);
       this.addToData(response.data);

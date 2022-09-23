@@ -13,7 +13,7 @@ export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
   private liquidacion = 0;
   private links: Array<string> = [];
   private fechaInicio: string;
-  private fechaFin: String;
+  private fechaFin: string;
 
   constructor(nombreSucursal: string, idSucursal: number, fechaInicio: string, fechaFin: string) {
     this.nombreSucursal = nombreSucursal;
@@ -62,7 +62,7 @@ export class LiquidacionSemanalSedeCreator implements LiquidacionSemanalSede {
       Efectivo: this.Efectivo,
       'Mercadopago Dar Mas': this.mDarmas, // Modificar
       Bono: this.Bono,
-      'Mercadopago Especialista': this.mEspecialista, //modificar
+      'Mercadopago Especialista': this.mEspecialista, // modificar
       liquidacion: this.liquidacion,
       links: this.links
     };

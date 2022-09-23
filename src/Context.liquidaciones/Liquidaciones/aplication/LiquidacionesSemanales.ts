@@ -13,11 +13,11 @@ export class LiquidacionesSemanales {
   }
 
   async run(): Promise<any> {
-    //traigo pagos sedes y liquidaciones de la BD
+    // traigo pagos sedes y liquidaciones de la BD
     const pagos: Array<PagoSede> = await this.repository.getPagosSemanales();
     const sedes: Array<Sede> = await this.repository.getSedes();
     const liquidaciones: Array<LiquidacionDentista> = await this.repository.getLiquidacionesSemanales();
-    //por cada sede creo un creador de liquidaciones
+    // por cada sede creo un creador de liquidaciones
     const liquidacionesSedes = sedes.map(
       (sede: any) =>
         new LiquidacionSemanalSedeCreator(
@@ -28,19 +28,19 @@ export class LiquidacionesSemanales {
         )
     );
 
-    //recorro pagos y los voy agregando a las liquidaciones de la sede correspondiente
+    // recorro pagos y los voy agregando a las liquidaciones de la sede correspondiente
     pagos.forEach((pago: PagoSede) => {
-      //a que sede pertenece?
+      // a que sede pertenece?
       const idSucursal = pago.id_sucursal;
-      //filtro
+      // filtro
       const liquidacionSede: LiquidacionSemanalSedeCreator = liquidacionesSedes.filter(
         (liq: LiquidacionSemanalSedeCreator) => liq.idSucursal === idSucursal
       )[0];
-      //agrego el pago
+      // agrego el pago
       liquidacionSede.agregarPago(pago);
     });
 
-    //recorro liquidaciones y las voy agregando a las liquidaciones de la sede correspondiente
+    // recorro liquidaciones y las voy agregando a las liquidaciones de la sede correspondiente
     liquidaciones.forEach((liquidacion: LiquidacionDentista) => {
       const idSucursal = liquidacion.id_sucursal;
       const liquidacionSede: LiquidacionSemanalSedeCreator = liquidacionesSedes.filter(

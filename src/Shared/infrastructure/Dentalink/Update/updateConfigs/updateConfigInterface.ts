@@ -3,5 +3,5 @@ export interface UpdateConfig {
     url: string;
     filters: {};
   };
-  maper: Function;
+  maper(data: Array<any>): Array<any>;
 }

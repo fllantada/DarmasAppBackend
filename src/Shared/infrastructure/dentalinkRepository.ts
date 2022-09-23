@@ -6,13 +6,13 @@ export class DentalinkRepository {
   constructor() {}
 
   async updatePagos(fechaInicio: string, fechaFin: string): Promise<Array<any>> {
-    //creo la configuracion para el update pasando las fechas que llegan por parametro desde la APP
+    // creo la configuracion para el update pasando las fechas que llegan por parametro desde la APP
     const pagosConfig = pagosUpdateConfig(fechaInicio, fechaFin);
-    //creo instancia del updater con la configuracion
+    // creo instancia del updater con la configuracion
     const updater = new DentalinkUpdater(pagosConfig);
-    //ejecuto el update
+    // ejecuto el update
     const updatedData = await updater.update();
-    //devuelvo los pagos actualizados
+    // devuelvo los pagos actualizados
     return updatedData;
   }
 
