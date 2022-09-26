@@ -3,8 +3,8 @@ import glob from 'glob';
 import { CronUpdateJob } from '../../infrastructure/cronJobs/CronUpdateJob';
 
 export class TaskManager {
-  private tasks: Array<Task> = [];
-  private jobs: Array<CronUpdateJob> = [];
+  private tasks: Task[] = [];
+  private jobs: CronUpdateJob[] = [];
   constructor() {
     this.findTasks();
   }
