@@ -17,7 +17,7 @@ export class TaskManager {
         job.start();
       }
     }
-    return 'task started';
+    return 'task started2';
   }
 
   findTasks(): Array<Task> {
