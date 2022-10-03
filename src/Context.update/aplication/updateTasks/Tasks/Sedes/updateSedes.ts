@@ -13,6 +13,7 @@ async function isActive(sede: { id_dentalink: string }): Promise<boolean> {
   }
 }
 export async function updateSedes(): Promise<{ msg: string }> {
+  console.log('iniciando update Sedes activas en dentalink');
   const newSedes: Array<any> = await new DentalinkRepository().updateSedes();
   let sedesAmount = 0;
 
