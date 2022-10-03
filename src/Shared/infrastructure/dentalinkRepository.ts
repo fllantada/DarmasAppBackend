@@ -6,6 +6,7 @@ export class DentalinkRepository {
   constructor() {}
 
   async updatePagos(fechaInicio: string, fechaFin: string): Promise<Array<any>> {
+    console.log('Desde DEntalink Repository inicio update pagos con intervalo en:', fechaInicio, fechaFin);
     // creo la configuracion para el update pasando las fechas que llegan por parametro desde la APP
     const pagosConfig = pagosUpdateConfig(fechaInicio, fechaFin);
     // creo instancia del updater con la configuracion
@@ -17,12 +18,14 @@ export class DentalinkRepository {
   }
 
   async updateLiquidaciones(fechaInicio: string): Promise<Array<any>> {
+    console.log('Desde DEntalink Repository Inicio update liquidaciones con fecha: ', fechaInicio);
     const liquidacionesConfig = liquidacionesUpdateConfig(fechaInicio);
     const updater = new DentalinkUpdater(liquidacionesConfig);
     const updatedData = await updater.update();
     return updatedData;
   }
   async updateSedes(): Promise<any> {
+    console.log('Desde DEntalink Repository Inicio update sedes');
     const sedesConfig = sedesUpdateConfig();
     const updater = new DentalinkUpdater(sedesConfig);
     const updatedData = await updater.update();
